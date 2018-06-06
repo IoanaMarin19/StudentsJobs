@@ -1,0 +1,18 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "changelogDate": "20170422154534",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "company",
+    "pagination": "infinite-scroll"
+}

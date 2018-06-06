@@ -1,0 +1,25 @@
+
+<div *ngIf="title">
+    <h2><span>Titlu</span> {{title.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Denumire</span></dt>
+        <dd>
+            <span>{{title.name}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Înapoi</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'title/'+ title.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Editează</span>
+    </button>
+</div>

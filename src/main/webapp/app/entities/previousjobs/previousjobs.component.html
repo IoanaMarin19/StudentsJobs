@@ -1,0 +1,72 @@
+<div>
+    <h2>
+        <span>Joburi anterioare</span>
+        <button class="btn btn-primary float-right create-previousjobs" [routerLink]="['/', { outlets: { popup: ['previousjobs-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Adaugă job anterior
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="previousjobs">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="student.nume"><span>Student</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="company.name"><span>Companie</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="title.name"><span>Titlu</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let previousjobs of previousjobs ;trackBy: trackId">
+                <td><a [routerLink]="['../previousjobs', previousjobs.id ]">{{previousjobs.id}}</a></td>
+                <td>
+                    <div *ngIf="previousjobs.student">
+                        <a [routerLink]="['../student', previousjobs.student?.id ]" >{{previousjobs.student?.nume}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="previousjobs.company">
+                        <a [routerLink]="['../company', previousjobs.company?.id ]" >{{previousjobs.company?.name}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="previousjobs.title">
+                        <a [routerLink]="['../title', previousjobs.title?.id ]" >{{previousjobs.title?.name}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../previousjobs', previousjobs.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down">Vizualizează</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'previousjobs/'+ previousjobs.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down">Editează</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'previousjobs/'+ previousjobs.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down">Șterge</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

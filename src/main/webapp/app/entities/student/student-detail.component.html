@@ -1,0 +1,45 @@
+
+<div *ngIf="student">
+    <h2><span>Student</span> {{student.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Nume</span></dt>
+        <dd>
+            <span>{{student.nume}}</span>
+        </dd>
+        <dt><span>Prenume</span></dt>
+        <dd>
+            <span>{{student.prenume}}</span>
+        </dd>
+        <dt><span>Email</span></dt>
+        <dd>
+            <span>{{student.email}}</span>
+        </dd>
+        <dt><span>Compania curentă</span></dt>
+        <dd>
+            <div *ngIf="student.company">
+                <a [routerLink]="['/company', student.company?.id]">{{student.company?.name}}</a>
+            </div>
+        </dd>
+        <dt><span>Funcția curentă</span></dt>
+        <dd>
+            <div *ngIf="student.title">
+                <a [routerLink]="['/title', student.title?.id]">{{student.title?.name}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Înapoi</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'student/'+ student.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Editează</span>
+    </button>
+</div>

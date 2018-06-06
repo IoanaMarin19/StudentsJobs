@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Previousjobs.
+    -->
+    <changeSet id="20170422210245-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="student_id"
+                                 baseTableName="previousjobs"
+                                 constraintName="fk_previousjobs_student_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="student"/>
+
+        <addForeignKeyConstraint baseColumnNames="company_id"
+                                 baseTableName="previousjobs"
+                                 constraintName="fk_previousjobs_company_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="company"/>
+
+        <addForeignKeyConstraint baseColumnNames="title_id"
+                                 baseTableName="previousjobs"
+                                 constraintName="fk_previousjobs_title_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="title"/>
+
+    </changeSet>
+</databaseChangeLog>

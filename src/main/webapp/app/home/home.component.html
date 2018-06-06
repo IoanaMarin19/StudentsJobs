@@ -1,0 +1,28 @@
+<div class="row">
+    <div class="col-md-5">
+        <span class="hipster img-fluid img-rounded"></span>
+    </div>
+    <div class="col-md-7">
+        <h1 class="display-6">Facultatea de Știinte Aplicate</h1>
+        <p class="lead">Detalii joburi studenți/absolvenți</p>
+
+        <div [ngSwitch]="isAuthenticated()">
+            <div class="alert alert-success" *ngSwitchCase="true">
+                <span *ngIf="account"
+                > Ești logat ca "{{account.login}}". </span>
+            </div>
+
+            <div class="alert alert-info" *ngSwitchCase="false">
+                <span>Vrei să te autentifici? </span>
+                <a class="alert-link" (click)="login()">Autentificare</a>
+            </div>
+
+            <div class="alert alert-info" *ngSwitchCase="false">
+                <span>Nu ai cont incă?</span>
+                <a class="alert-link" routerLink="register">Creează cont nou</a>
+            </div>
+        </div>
+
+
+    </div>
+</div>

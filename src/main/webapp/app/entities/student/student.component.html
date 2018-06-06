@@ -1,0 +1,88 @@
+<div>
+    <h2>
+        <span>Studenți/absolvenți</span>
+        <button class="btn btn-primary float-right create-student"
+                [routerLink]="['/', { outlets: { popup: ['student-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span>
+            Adaugă Student
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="students">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+                <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="nume"><span>Nume</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="prenume"><span>Prenume</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="email"><span>Email</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="company.name"><span>Compania curentă</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="title.name"><span>Funcția curentă</span> <span class="fa fa-sort"></span></th>
+                <th jhiSortBy="title.name"><span>Locuri de muncă în trecut</span> <span class="fa fa-sort"></span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']"
+                   [infiniteScrollDistance]="0">
+            <tr *ngFor="let student of students ;trackBy: trackId">
+                <td><a [routerLink]="['../student', student.id ]">{{student.id}}</a></td>
+                <td>{{student.nume}}</td>
+                <td>{{student.prenume}}</td>
+                <td>{{student.email}}</td>
+                <td>
+                    <div *ngIf="student.company">
+                        <a [routerLink]="['../company', student.company?.id ]">{{student.company?.name}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="student.title">
+                        <a [routerLink]="['../title', student.title?.id ]">{{student.title?.name}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="student.previousJobs">
+                        <li *ngFor="let previousJobs of student.previousJobs">
+                            {{previousJobs?.company.name}}, {{previousJobs?.title.name}}
+                        </li>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button class="btn btn-primary float-right create-previousjobs" [routerLink]="['/', { outlets: { popup: 'previousjobsbystudent-new/'+ student.id } }]">
+                            <span class="fa fa-plus"></span>
+                            <span >
+                                Joburi anterioare
+                            </span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['../student', student.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down">Vizualizează</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'student/'+ student.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down">Editează</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'student/'+ student.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down">Șterge</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
